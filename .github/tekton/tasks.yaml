@@ -1,0 +1,56 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-app
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: npm-install
+      image: node
+      workingDir: $(workspaces.source.path)
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm install
+    - name: npm-teste
+      image: node
+      workingDir: $(workspaces.source.path)
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm run test
+    - name: npm-build
+      image: node
+      workingDir: $(workspaces.source.path)
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm run build
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-image
+spec:
+  workspaces:
+    - name: source
+    - name: varlibcontainers
+  steps:
+    - name: build-image
+      image: quay.io/buildah/upstream:latest
+      workingDir: $(workspaces.source.path)
+      securityContext:
+        runAsUser: 0
+        privileged: true
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /home/build/.local/share/containers
+      script: |
+        buildah bud --tag=teste .
+  volumes:
+    - name: varlibcontainers
+      emptyDir: {}

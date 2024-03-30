@@ -1,9 +1,0 @@
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: list-source
-spec:
-  spec:
-    - name: list-source
-      image: ubuntu
-      script: ls
