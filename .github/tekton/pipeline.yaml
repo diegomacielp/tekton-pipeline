@@ -6,10 +6,8 @@ spec:
   params:
     - name: repo-url
       type: string
-      default: https://github.com/diegomacielp/tekton-pipeline.git
     - name: revision
       type: string
-      default: main
   workspaces:
     - name: workspace
   tasks:
@@ -25,4 +23,6 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
-      
+    - name: list-source
+      taskRef:
+        name: list-source
