@@ -1,31 +1,34 @@
 apiVersion: tekton.dev/v1beta1
-kind: Pipeline
+kind: Task
 metadata:
-  name: task-build
+  name: task-deploy
 spec:
   params:
-    - name: IMAGE_NAME
+    - name: TLSVERIFY
       type: string
-    - name: GIT_REPO
-      type: string
-    - name: GIT_REVISION
-      type: string
-  workspaces:
-    - name: workspace
-  tasks:
-    - name: checkou-repository
-      taskRef:
-        name: git-clone
-        kind: ClusterTask
-      workspaces:
-        - name: output
-          workspace: workspace
-      params:
-        - name: url
-          value: $(params.GIT_REPO)
-        - name: revision
-          value: $(params.GIT_REVISION)
-        - name: subdirectory
-          value: ""
-        - name: deleteExisting
-          value: "true"
+      default: "false"  
+  steps:
+    - name: npm-install
+      image: node
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm install
+      workingDir: /workspace/app
+    - name: npm-test
+      image: node
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm run test
+      workingDir: /workspace/app
+    - name: npm-build
+      image: node
+      command:
+        - /bin/sh
+        - -c
+      args:
+        - npm run build
+      workingDir: /workspace/app
