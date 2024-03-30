@@ -24,13 +24,3 @@ Test the application endpoint with `curl`:
 ```bash
 curl 127.0.0.1:8080
 ```
-
-# CI
-
-## OpenShift Pipelines (Tekton)
-
-The resource to run continuous-integration jobs are documented on the [`ci/tekton` directory](./ci/tekton/).
-
-
-[shipwright]: https://github.com/shipwright-io
-[buildpacksPack]: https://buildpacks.io/docs/tools/pack/
