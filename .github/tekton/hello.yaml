@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello-task
+spec:
+  steps:
+    - name: hello
+      image: ubuntu
+      script: |
+        echo "Hello"
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: hello-taskrun
+spec:
+  taskRef:
+    name: hello-task
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: hello-pipeline
+spec:
+  tasks:
+    - name: hello-task
+      taskRef:
+        name: hello-task
+    - name: bye-task
+      taskSpec:
+        steps:
+          - name: bye
+            image: ubuntu
+            script: |
+              echo "Hello"
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: hello-pipelinerun
+spec:
+  pipelineRef:
+    name: hello-pipeline
