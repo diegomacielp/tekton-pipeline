@@ -38,19 +38,20 @@ metadata:
 spec:
   workspaces:
     - name: source
-    - name: varlibcontainers
+  params:
+    - name: imageUrl
+      default: image-registry.openshift-image-registry.svc:5000/meuprojeto/minha-imagem
   steps:
     - name: build-image
       image: quay.io/buildah/upstream:latest
       workingDir: $(workspaces.source.path)
-      securityContext:
-        runAsUser: 0
-        privileged: true
-      volumeMounts:
-        - name: varlibcontainers
-          mountPath: /home/build/.local/share/containers
       script: |
-        buildah bud --tag=teste .
+        ls
+      volumeMounts:
+      - name: varlibcontainers
+        mountPath: /var/lib/containers
+      securityContext:
+        privileged: true
   volumes:
-    - name: varlibcontainers
-      emptyDir: {}
+  - name: varlibcontainers
+    emptyDir: {}
