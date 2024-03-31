@@ -40,7 +40,7 @@ spec:
     - name: source
   params:
     - name: imageUrl
-      default: image-registry.openshift-image-registry.svc:5000/meuprojeto/minha-imagem
+      default: image-registry.openshift-image-registry.svc:5000/diegopm-dev/app
   steps:
     - name: build-image
       image: quay.io/buildah/upstream:latest

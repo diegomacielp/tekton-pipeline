@@ -23,15 +23,15 @@ spec:
       workspaces:
         - name: output
           workspace: workspace
-    #- name: build-app
-    #  runAfter: ["fetch-source"]
-    #  taskRef:
-    #    name: build-app
-    #  workspaces:
-    #    - name: source
-    #      workspace: workspace
-    - name: build-image
+    - name: build-app
       runAfter: ["fetch-source"]
+      taskRef:
+        name: build-app
+      workspaces:
+        - name: source
+          workspace: workspace
+    - name: build-image
+      runAfter: ["build-app"]
       taskRef:
         name: build-image
       workspaces:
