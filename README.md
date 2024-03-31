@@ -1,7 +1,6 @@
-`typescript-ex`
+`Tekton Pipeline`
 ---------------
 
-Is a "hello world" application written on TypeScript, it shows the [Shipwright's][shipwright] logo (`./assets/images/shipwright-logo.png`) in a simple page.
 
 # Building and Running
 
