@@ -16,7 +16,7 @@ spec:
         app: diegopm-dev
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/diegopm-dev/app:latest
+      - image: image
         name: diegopm-dev
         ports:
         - containerPort: 8080
