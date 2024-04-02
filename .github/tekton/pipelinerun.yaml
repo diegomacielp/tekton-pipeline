@@ -3,14 +3,15 @@ kind: PipelineRun
 metadata:
   name: pipelinerun
 spec:
+  serviceAccountName: pipeline
   pipelineRef:
     name: pipeline
-  #podTemplate:
-    #securityContext:
-      #fsGroup: 65532
+  podTemplate:
+    securityContext:
+      fsGroup: 65332
   params:
     - name: repo-url
-      value: 'https://github.com/diegomacielp/tekton-pipeline.git'
+      value: 'git@github.com:diegomacielp/tekton-pipeline.git'
     - name: revision
       value: main
   workspaces:
@@ -25,5 +26,5 @@ spec:
     - name: git-credentials
       secret:
         secretName: git-credentials
-    - name: varlibcontainers
-      emptyDir: {}
+        #- name: varlibcontainers
+        #emptyDir: {}
