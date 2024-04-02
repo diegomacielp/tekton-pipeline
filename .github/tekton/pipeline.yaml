@@ -21,6 +21,8 @@ spec:
           value: $(params.repo-url)
         - name: revision
           value: $(params.revision)
+        - name: submodules
+          value: "false"
       workspaces:
         - name: output
           workspace: workspace
