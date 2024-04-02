@@ -10,7 +10,7 @@ spec:
       type: string
   workspaces:
     - name: workspace
-    - name: ssh-creds
+    - name: git-credentials
   tasks:
     - name: fetch-source
       taskRef:
@@ -27,7 +27,7 @@ spec:
         - name: output
           workspace: workspace
         - name: ssh-directory
-          workspace: ssh-creds
+          workspace: git-credentials
     #- name: build-app
     #  runAfter: ["fetch-source"]
     #  taskRef:
