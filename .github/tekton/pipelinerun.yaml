@@ -6,8 +6,8 @@ spec:
   pipelineRef:
     name: pipeline
   #podTemplate:
-  #  securityContext:
-  #    fsGroup: 65532
+    #securityContext:
+      #fsGroup: 65532
   params:
     - name: repo-url
       value: 'https://github.com/diegomacielp/tekton-pipeline.git'
