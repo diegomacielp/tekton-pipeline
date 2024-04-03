@@ -29,3 +29,19 @@ curl 127.0.0.1:8080
 ```bash
 oc adm policy add-scc-to-user privileged -z pipeline
 ```
+
+# secret.yaml
+
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-credentials
+data:
+  # cat ~/.ssh/id_rsa | base64 -w 0
+  id_rsa:
+  # cat ~/.ssh/known_hosts | base64 -w 0
+  known_hosts: 
+  # cat ~/.ssh/config | base64 -w 0
+  config:
+```
