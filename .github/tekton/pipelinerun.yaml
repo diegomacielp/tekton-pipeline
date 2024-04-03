@@ -6,9 +6,6 @@ spec:
   serviceAccountName: pipeline
   pipelineRef:
     name: pipeline
-  podTemplate:
-    securityContext:
-      fsGroup: 65332
   params:
     - name: repo-url
       value: 'git@github.com:diegomacielp/tekton-pipeline.git'
@@ -26,5 +23,5 @@ spec:
     - name: git-credentials
       secret:
         secretName: git-credentials
-        #- name: varlibcontainers
-        #emptyDir: {}
+    - name: varlibcontainers
+      emptyDir: {}

@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: diegopm-dev
-  name: diegopm-dev
+    app: app
+  name: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: diegopm-dev
+      app: app
   strategy: {}
   template:
     metadata:
       labels:
-        app: diegopm-dev
+        app: app
     spec:
       containers:
-      - image: image
-        name: diegopm-dev
+      - image: image-registry.openshift-image-registry.svc:5000/pida-diego/app
+        name: app
         ports:
         - containerPort: 8080
         resources:

@@ -33,10 +33,10 @@ spec:
       workspaces:
         - name: source
           workspace: workspace
-          #    - name: build-image
-          #      runAfter: ["build-app"]
-          #      taskRef:
-          #        name: build-image
-          #      workspaces:
-          #        - name: source
-          #          workspace: workspace
+    - name: push
+      runAfter: ["build"]
+      taskRef:
+        name: push
+      workspaces:
+      - name: source
+        workspace: workspace

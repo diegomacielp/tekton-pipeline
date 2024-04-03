@@ -1,18 +1,17 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: diegopm-dev
-  namespace: diegopm-dev
+  name: app
   labels:
-    app: diegopm-dev
+    app: app
 spec:
   to:
     kind: Service
-    name: diegopm-dev
+    name: app
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
     destinationCACertificate: ''
-  host: app-diegopm-dev.apps-crc.testing
+  host: app-pida-diego.apps-crc.testing
   port:
     targetPort: 8080
