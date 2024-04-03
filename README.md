@@ -30,7 +30,7 @@ curl 127.0.0.1:8080
 oc adm policy add-scc-to-user privileged -z pipeline
 ```
 
-# secret.yaml
+# .github/tekton/secret.yaml
 
 ```bash
 apiVersion: v1
