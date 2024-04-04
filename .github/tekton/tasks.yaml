@@ -78,6 +78,7 @@ spec:
         #buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         #--tls-verify=$(params.TLSVERIFY) \
         #image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
+        echo -n "${TAG}
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers 
@@ -101,7 +102,7 @@ spec:
       type: string
   steps:
     - name: set-tag
-      image: alpine
+      image: alpine/git
       workingDir: $(workspaces.source.path)/k8s
       script: |
         sed -i "s/newName.*/newName: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION)/" kustomize.yaml
