@@ -62,7 +62,7 @@ spec:
         name: git-cli
         kind: ClusterTask
       workspaces:
-        - name: output
+        - name: source
           workspace: workspace
         - name: ssh-directory
           workspace: git-credentials
