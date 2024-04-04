@@ -26,6 +26,8 @@ curl 127.0.0.1:8080
 
 # Managing security context constraints
 
+Mounting Volumes on Privileged Pods
+
 ```bash
 oc adm policy add-scc-to-user privileged -z pipeline
 ```
