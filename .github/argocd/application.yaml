@@ -2,14 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: pida-diego
-  namespace: openshift-gitops-operator
+  namespace: openshift-gitops
 spec:
   destination:
     name: ''
-    namespace: openshift-gitops-operator
+    namespace: ''
     server: 'https://kubernetes.default.svc'
   source:
     path: tmp
-    repoURL: 'https://github.com/diegomacielp/tekton-pipeline.git'
+    repoURL: 'git@github.com:diegomacielp/tekton-pipeline.git'
     targetRevision: main
+  sources: []
   project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
