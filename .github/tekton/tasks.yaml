@@ -119,14 +119,21 @@ spec:
     - name: ssh-directory
   steps:
     - name: push-git
-      image: alpine
+      image: alpine/git
       workingDir: $(workspaces.source.path)
       securityContext:
         privileged: true
       script: |
-        #!/usr/bin/env sh
+        #!/usr/bin/env sh 
         set -e
 
         mkdir ~/.ssh/
         cp $(workspaces.ssh-directory.path)/* ~/.ssh/
         chmod 400 ~/.ssh/ -R
+
+        eval $(ssh-agent)
+        ssh-add ~/.ssh/id_*
+
+        git config --global user.email "tekton@tekton.dev"
+        git config --global user.name "Tekton Pipeline"
+        git add .
