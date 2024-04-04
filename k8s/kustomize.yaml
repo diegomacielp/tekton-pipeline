@@ -6,5 +6,5 @@ resources:
   - service.yaml
 images:
   - name: image
-    newName:
-    newTag:
+    newName: image-registry.openshift-image-registry.svc:5000/pida-diego/app
+    newTag: 7e0126ba-4a80-41ef-8a5f-0348c61a32f6
