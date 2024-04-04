@@ -69,6 +69,7 @@ spec:
       params:
         - name: GIT_SCRIPT
           value:
+            git config --global --add safe.directory /workspace/source
             git add .
             git commit -m "manifest-deployment"
             git push
