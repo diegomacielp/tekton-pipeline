@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pida-diego
+spec:
+  destination:
+    name: ''
+    namespace: pida-diego
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: k8s
+    repoURL: 'git@github.com:diegomacielp/tekton-pipeline.git'
+    targetRevision: main
+  project: default
