@@ -8,6 +8,10 @@ spec:
       type: string
     - name: revision
       type: string
+    - name: PROJECT
+      type: string
+    - name: APPLICATION
+      type: string
   workspaces:
     - name: workspace
     - name: git-credentials
@@ -26,17 +30,15 @@ spec:
           workspace: workspace
         - name: ssh-directory
           workspace: git-credentials
-    - name: build
+    - name: image-build-push
       runAfter: ["fetch-source"]
       taskRef:
-        name: build
+        name: image-build-push
+      params:
+        - name: PROJECT
+          value: $(params.PROJECT)
+        - name: APPLICATION
+          value: $(params.APPLICATION)
       workspaces:
         - name: source
           workspace: workspace
-    - name: push
-      runAfter: ["build"]
-      taskRef:
-        name: push
-      workspaces:
-      - name: source
-        workspace: workspace

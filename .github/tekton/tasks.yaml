@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: build
+  name: npm-build
 spec:
   workspaces:
     - name: source
@@ -34,17 +34,15 @@ spec:
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: push
+  name: image-build-push
 spec:
   workspaces:
     - name: source
   params:
     - name: PROJECT
-      default: pida-diego
+      type: string
     - name: APPLICATION
-      default: app
-    - name: TAG
-      default: $(context.taskRun.uid)
+      type: string
     - name: STORAGE_DRIVER
       default: overlay
     - name: DOCKERFILE
@@ -53,31 +51,36 @@ spec:
       default: .
     - name: TLSVERIFY
       default: "false"
+  results:
+    - name: TAG
   steps:
-    - name: build
+    - name: image-build
       image: quay.io/buildah/upstream:latest
       workingDir: $(workspaces.source.path)
+      securityContext:
+        privileged: true
       script: |
+        TAG=$(context.taskRun.uid)
         buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
         --no-cache --tls-verify=$(params.TLSVERIFY) -f $(params.DOCKERFILE) \
-        -t image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$(params.TAG)
+        -t image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
+        echo -n "${TAG}" > "$(results.TAG.path)"
       volumeMounts:
-      - name: varlibcontainers
-        mountPath: /var/lib/containers
-      securityContext:
-        privileged: true
-    - name: push
+        - name: varlibcontainers
+          mountPath: /var/lib/containers
+    - name: image-push
       image: quay.io/buildah/upstream:latest
       workingDir: $(workspaces.source.path)
-      script: |
-        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-        --tls-verify=$(params.TLSVERIFY) \
-        image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$(params.TAG)
-      volumeMounts:
-      - name: varlibcontainers
-        mountPath: /var/lib/containers
       securityContext:
         privileged: true
+      script: |
+        TAG=$(context.taskRun.uid)
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
+        --tls-verify=$(params.TLSVERIFY) \
+        image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
+      volumeMounts:
+        - name: varlibcontainers
+          mountPath: /var/lib/containers 
   volumes:
-  - name: varlibcontainers
-    emptyDir: {}
+    - name: varlibcontainers
+      emptyDir: {}

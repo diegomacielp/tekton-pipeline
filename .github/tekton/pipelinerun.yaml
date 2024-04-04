@@ -11,6 +11,10 @@ spec:
       value: 'git@github.com:diegomacielp/tekton-pipeline.git'
     - name: revision
       value: main
+    - name: PROJECT
+      value: pida-diego
+    - name: APPLICATION
+      value: app
   workspaces:
     - name: workspace
       volumeClaimTemplate:
