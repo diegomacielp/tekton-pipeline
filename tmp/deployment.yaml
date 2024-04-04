@@ -4,6 +4,7 @@ metadata:
   labels:
     app: app
   name: app
+  namespace: pida-diego
 spec:
   replicas: 1
   selector:

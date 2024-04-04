@@ -9,6 +9,6 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: tmp
-    repoURL: 'git@github.com:diegomacielp/tekton-pipeline.git'
+    repoURL: 'https://github.com/diegomacielp/tekton-pipeline.git'
     targetRevision: main
   project: default
