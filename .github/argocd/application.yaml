@@ -2,10 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: pida-diego
+  namespace: openshift-gitops-operator
 spec:
   destination:
     name: ''
-    namespace: pida-diego
+    namespace: openshift-gitops-operator
     server: 'https://kubernetes.default.svc'
   source:
     path: tmp
