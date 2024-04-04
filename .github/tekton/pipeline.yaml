@@ -60,6 +60,9 @@ spec:
       runAfter: ["set-tag-manifest-deployment"]
       taskRef: 
         name: push-git-manifest-deployment
+      params:
+        - name: TAG
+          value: $(tasks.image-build-push.results.TAG)
       workspaces:
         - name: source
           workspace: workspace
