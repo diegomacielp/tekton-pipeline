@@ -8,7 +8,7 @@ spec:
     namespace: pida-diego
     server: 'https://kubernetes.default.svc'
   source:
-    path: k8s
+    path: tmp
     repoURL: 'git@github.com:diegomacielp/tekton-pipeline.git'
     targetRevision: main
   project: default
