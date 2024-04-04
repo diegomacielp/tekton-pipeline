@@ -4,6 +4,7 @@ metadata:
   name: app
   labels:
     app: app
+  namespace: pida-diego
 spec:
   to:
     kind: Service
