@@ -7,4 +7,4 @@ resources:
 images:
   - name: image
     newName: image-registry.openshift-image-registry.svc:5000/pida-diego/app
-    newTag: 7e0126ba-4a80-41ef-8a5f-0348c61a32f6
+    newTag: 7fdd786b-5248-4465-a082-311bac84fc18
