@@ -78,7 +78,7 @@ spec:
         #buildah --storage-driver=$(params.STORAGE_DRIVER) push \
         #--tls-verify=$(params.TLSVERIFY) \
         #image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
-        echo -n "${TAG}
+        echo -n "${TAG}"
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers 
@@ -102,8 +102,31 @@ spec:
       type: string
   steps:
     - name: set-tag
-      image: alpine/git
+      image: alpine
       workingDir: $(workspaces.source.path)/k8s
       script: |
         sed -i "s/newName.*/newName: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION)/" kustomize.yaml
         sed -i "s/newTag.*/newTag: $(params.TAG)/" kustomize.yaml
+        cat kustomize.yaml
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-git-manifest-deployment
+spec:
+  workspaces:
+    - name: source
+    - name: ssh-directory
+  steps:
+    - name: push-git
+      image: alpine
+      workingDir: $(workspaces.source.path)
+      securityContext:
+        privileged: true
+      script: |
+        #!/usr/bin/env sh
+        set -e
+
+        mkdir ~/.ssh/
+        cp $(workspaces.ssh-directory.path)/* ~/.ssh/
+        chmod 400 ~/.ssh/ -R
