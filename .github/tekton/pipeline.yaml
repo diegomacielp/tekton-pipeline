@@ -61,6 +61,8 @@ spec:
       taskRef: 
         name: push-git-manifest-deployment
       params:
+        - name: revision
+          value: $(params.revision)
         - name: TAG
           value: $(tasks.image-build-push.results.TAG)
       workspaces:
