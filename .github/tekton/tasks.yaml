@@ -106,3 +106,16 @@ spec:
       script: |
         sed -i "s/newName.*/newName: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION)/" kustomize.yaml
         sed -i "s/newTag.*/newTag: $(params.TAG)/" kustomize.yaml
+    - name: push-manifest-deployment
+      taskRef: git-cli
+      workspaces:
+        - name: output
+          workspace: workspace
+        - name: ssh-directory
+          workspace: git-credentials
+      params:
+        - name: GIT_SCRIPT
+          value:
+            git add .
+            git commit -m "manifest-deployment"
+            git push
