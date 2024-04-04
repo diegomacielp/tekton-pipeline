@@ -56,3 +56,19 @@ spec:
       workspaces:
         - name: source
           workspace: workspace
+    - name: push-manifest-deployment
+      runAfter: ["set-tag-manifest-deployment"]
+      taskRef: 
+        name: git-cli
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: workspace
+        - name: ssh-directory
+          workspace: git-credentials
+      params:
+        - name: GIT_SCRIPT
+          value:
+            git add .
+            git commit -m "manifest-deployment"
+            git push
