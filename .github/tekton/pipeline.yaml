@@ -42,3 +42,17 @@ spec:
       workspaces:
         - name: source
           workspace: workspace
+    - name: set-tag-manifest-deployment
+      runAfter: ["image-build-push"]
+      taskRef:
+        name: set-tag-manifest-deployment
+      params:
+        - name: PROJECT
+          value: $(params.PROJECT)
+        - name: APPLICATION
+          value: $(params.APPLICATION)
+        - name: TAG
+          value: $(tasks.image-build-push.results.TAG)
+      workspaces:
+        - name: source
+          workspace: workspace
