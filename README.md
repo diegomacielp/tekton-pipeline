@@ -24,12 +24,18 @@ Test the application endpoint with `curl`:
 curl 127.0.0.1:8080
 ```
 
-# Managing security context constraints
+# Permissions
 
 Mounting Volumes on Privileged Pods:
 
 ```bash
 oc adm policy add-scc-to-user privileged -z pipeline
+```
+
+Allow Tekton service user to run commands in Argocd namespace
+
+```bash
+oc adm policy add-role-to-user admin system:serviceaccount:pida-diego:pipeline -n openshift-gitops
 ```
 
 # Manifest secret.yaml
