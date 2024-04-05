@@ -65,12 +65,10 @@ data:
 kind: Secret
 apiVersion: v1
 metadata:
-  name: repo-737288659
+  name: git-credentials
   namespace: openshift-gitops
   labels:
     argocd.argoproj.io/secret-type: repository
-  annotations:
-    managed-by: argocd.argoproj.io
 data:
   # Github
   name: R2l0aHVi
