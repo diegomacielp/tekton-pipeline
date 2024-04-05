@@ -61,6 +61,7 @@ data:
 ```
 
 # Apply Argocd secret.yaml
+
 ```bash
 kind: Secret
 apiVersion: v1
@@ -79,4 +80,12 @@ data:
   # Z2l0QGdpdGh1Yi5jb206ZGllZ29tYWNpZWxwL3Rla3Rvbi1waXBlbGluZS5naXQ=
   url: Z2l0QGdpdGh1Yi5jb206ZGllZ29tYWNpZWxwL3Rla3Rvbi1waXBlbGluZS5naXQ=
 type: Opaque
+```
+
+# Create Tekton pipeline
+
+```bash
+oc apply -f .github/tekton/tasks.yaml
+oc apply -f .github/tekton/pipeline.yaml
+oc apply -f .github/tekton/pipelinerun.yaml
 ```
