@@ -12,7 +12,7 @@ spec:
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
-    destinationCACertificate: ''
+    #destinationCACertificate: ''
   host: app-pida-diego.apps-crc.testing
   port:
     targetPort: 8080
