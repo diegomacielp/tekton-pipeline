@@ -44,7 +44,7 @@ Allows the Argocd service to deploy in the application namespace
 oc adm policy add-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n pida-diego
 ```
 
-# Manifest secret.yaml
+# Tekton secret.yaml
 
 ```bash
 apiVersion: v1
@@ -58,4 +58,27 @@ data:
   known_hosts: 
   # cat ~/.ssh/config | base64 -w 0
   config:
+```
+
+# Argocd secret.yaml
+```bash
+kind: Secret
+apiVersion: v1
+metadata:
+  name: repo-737288659
+  namespace: openshift-gitops
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  annotations:
+    managed-by: argocd.argoproj.io
+data:
+  # Github
+  name: R2l0aHVi
+  # cat ~/.ssh/known_hosts | base64 -w 0
+  sshPrivateKey:
+  # git
+  type: Z2l0
+  # Z2l0QGdpdGh1Yi5jb206ZGllZ29tYWNpZWxwL3Rla3Rvbi1waXBlbGluZS5naXQ=
+  url: Z2l0QGdpdGh1Yi5jb206ZGllZ29tYWNpZWxwL3Rla3Rvbi1waXBlbGluZS5naXQ=
+type: Opaque
 ```

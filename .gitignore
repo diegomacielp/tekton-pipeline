@@ -2,3 +2,4 @@
 /build
 /package-lock.json
 .github/tekton/secret.yaml
+.github/argocd/secret.yaml
