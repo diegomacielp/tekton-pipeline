@@ -157,6 +157,4 @@ spec:
       image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
       workingDir: $(workspaces.source.path)/.github/argocd
       script: |
-        oc apply -f secret.yaml
-        sleep 1
         oc apply -f application.yaml
