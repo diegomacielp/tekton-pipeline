@@ -144,3 +144,17 @@ spec:
         git add .
         git commit -m "[Tekton] - Updated TaskRun $(params.TAG)"
         git push origin HEAD:$(params.revision)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: create-application-argocd
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: create-application-argocd
+      image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+      workingDir: $(workspaces.source.path)/.github/argocd
+      script: |
+        oc apply -f application.yaml

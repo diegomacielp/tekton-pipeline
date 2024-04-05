@@ -70,3 +70,10 @@ spec:
           workspace: workspace
         - name: ssh-directory
           workspace: git-credentials
+    - name: create-application-argocd
+      runAfter: ["push-git-manifest-deployment"]
+      taskRef:
+        name: create-application-argocd
+      workspaces:
+        - name: source
+          workspace: workspace
