@@ -17,11 +17,7 @@ spec:
         app: app
     spec:
       containers:
-<<<<<<< HEAD
         - image: image-registry.openshift-image-registry.svc:5000/pida-diego/app:069bdbf6-8f4a-40e4-ad46-43afe6b0d563 image-registry.openshift-image-registry.svc:5000/pida-diego/app:5f928729-9ea5-49c4-9ea5-09fc91850b2f image-registry.openshift-image-registry.svc:5000/pida-diego/app:fb76fe07-2b28-4487-8645-4e928b14e537 image-registry.openshift-image-registry.svc:5000/pida-diego/app:fcd9dc11-982a-453d-915c-c079eae3e53a
-=======
-        - image: teste:123
->>>>>>> 0b223c9 (commit)
           name: app
           ports:
           - containerPort: 8080
