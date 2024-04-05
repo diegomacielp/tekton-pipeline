@@ -104,8 +104,7 @@ spec:
       image: alpine
       workingDir: $(workspaces.source.path)/k8s
       script: |
-        sed -i "s/- image:*/- image:/" deployment.yaml
-        sed -i "s/- image:*/- image: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION):$(params.TAG)/" deployment.yaml
+        sed -i "s/\- image:*/- image: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION):$(params.TAG)/" deployment.yaml
         cat deployment.yaml
 ---
 apiVersion: tekton.dev/v1beta1
