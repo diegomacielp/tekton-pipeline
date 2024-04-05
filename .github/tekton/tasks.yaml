@@ -61,9 +61,9 @@ spec:
         privileged: true
       script: |
         TAG=$(context.taskRun.uid)
-        #buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
-        #--no-cache --tls-verify=$(params.TLSVERIFY) -f $(params.DOCKERFILE) \
-        #-t image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
+        buildah --storage-driver=$(params.STORAGE_DRIVER) bud \
+        --no-cache --tls-verify=$(params.TLSVERIFY) -f $(params.DOCKERFILE) \
+        -t image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
         echo -n "${TAG}" > "$(results.TAG.path)"
       volumeMounts:
         - name: varlibcontainers
@@ -75,9 +75,9 @@ spec:
         privileged: true
       script: |
         TAG=$(context.taskRun.uid)
-        #buildah --storage-driver=$(params.STORAGE_DRIVER) push \
-        #--tls-verify=$(params.TLSVERIFY) \
-        #image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
+        buildah --storage-driver=$(params.STORAGE_DRIVER) push \
+        --tls-verify=$(params.TLSVERIFY) \
+        image-registry.openshift-image-registry.svc:5000/$(params.PROJECT)/$(params.APPLICATION):$TAG
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers 
@@ -105,7 +105,8 @@ spec:
       workingDir: $(workspaces.source.path)/k8s
       script: |
         sed -i "s/- image.*/- image: image-registry.openshift-image-registry.svc:5000\/$(params.PROJECT)\/$(params.APPLICATION):$(params.TAG)/" deployment.yaml
-        cat deployment.yaml
+        echo "deployment.yaml changed"
+        sleep 1
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
