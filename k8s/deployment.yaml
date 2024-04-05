@@ -17,7 +17,7 @@ spec:
         app: app
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/pida-diego/app:ea852c14-b548-4909-94cc-4f6fe836614a
+        - image: image-registry.openshift-image-registry.svc:5000/pida-diego/app:fa8c96b9-9887-4fb9-b139-c21d1433479c
           name: app
           ports:
           - containerPort: 8080
