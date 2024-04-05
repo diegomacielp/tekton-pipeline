@@ -38,6 +38,12 @@ Allow Tekton service user to run commands in Argocd namespace
 oc adm policy add-role-to-user admin system:serviceaccount:pida-diego:pipeline -n openshift-gitops
 ```
 
+Allows the Argocd service to deploy in the application namespace
+
+```bash
+oc adm policy add-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n pida-diego
+```
+
 # Manifest secret.yaml
 
 ```bash
